@@ -56,6 +56,3 @@ def set_to_file(set_of_links , filename):
 
 
 
-
-if __name__ == "__main__":
-    website_name = "Fox-News"

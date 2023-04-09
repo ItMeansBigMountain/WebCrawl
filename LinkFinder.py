@@ -26,5 +26,5 @@ class LinkFinder(HTMLParser):
 
 
 
-finder = LinkFinder()
-finder.feed(feed)
+finder = HTML_LinkFinder()
+finder.feed("")
