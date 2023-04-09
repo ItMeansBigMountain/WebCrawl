@@ -14,3 +14,4 @@
 
 # FIND THE PATTERN OF DATA FORMATTING
 
+by the way.... how does clearing chatGPT's API chat room work? does it remember everything on that api key?
