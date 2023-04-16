@@ -1,7 +1,7 @@
 import os
 
 # create project dir
-def create_directory(project_name):
+def create_project_directory(project_name):
     if not os.path.exists(project_name):
         os.makedirs(project_name)
     else: print("DIR ALREADY EXISTS!")
