@@ -1,6 +1,6 @@
 import requests
 from LinkFinder import LinkFinder
-from Generate_Files import *
+import Generate_Files 
 
 # spider will grab link and connect to that page. 
 # once connected, grab html
@@ -24,7 +24,7 @@ class Spider:
     
 
     # INSTANCE VARIABLES INIT (SPECIFIC TO EACH SPIDER OBJECT)
-    def __init__(self , project_name , base_url , domain_name):
+    def __init__(self , project_name , base_url , domain_name, exterior_urls=False):
         Spider.project_name = project_name 
         Spider.base_url = base_url 
         Spider.domain_name = domain_name 
@@ -75,14 +75,36 @@ class Spider:
             # check if response is html
             if "text/html" in response.headers.get("Content-Type").lower():
                 # set the encoding to UTF-8
-                response.encoding = 'utf-8'  
-                response.text
+                response.encoding = 'utf-8'
+            
+            # extract link
+            finder = LinkFinder(Spider.base_url, page_url)
+            finder.feed(response.text)
 
-        except:
-            ...
+        except Exception as e:
+            print(e)
+            print("Error: Cannot crawl page")
+            return set()
 
+        return finder.get_page_links()
+
+    @staticmethod
     def add_links_to_queue(links):
-        ...
+        for url in links:
+            # check if in lists
+            if url in Spider.queue:
+                continue
+            if url in Spider.crawled:
+                continue
 
+            # EXTERIOR WEBSITE EXCLUSION
+            if Spider.domain_name not in url and Spider.exterior_urls:
+                continue
+
+            Spider.queue.add(url)
+
+    @staticmethod
     def update_files():
-        ...
+        Generate_Files.set_to_file(Spider.queue, Spider.queue_file)
+        Generate_Files.set_to_file(Spider.crawled, Spider.crawled_file)
+
