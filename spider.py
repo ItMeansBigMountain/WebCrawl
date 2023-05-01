@@ -62,15 +62,27 @@ class Spider:
             Spider.crawled.remove(page_url)
             
             # update files
-            Spider.update()
+            Spider.update_files()
 
 
+    @staticmethod
+    def gather_links(page_url):
+        # convert bytes to string
+        html_string = ""
+        try:
+            response = requests.get(page_url)
+
+            # check if response is html
+            if "text/html" in response.headers.get("Content-Type").lower():
+                # set the encoding to UTF-8
+                response.encoding = 'utf-8'  
+                response.text
+
+        except:
+            ...
 
     def add_links_to_queue(links):
         ...
 
-    def gather_links(page_url):
-        ...
-
-    def update(page_url):
+    def update_files():
         ...
