@@ -1,30 +1,21 @@
-from html.parser import HTMLParser
-from urllib import parse
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
-
-
-class LinkFinder(HTMLParser):
-    def __init__(self,  base_url , page_url):
-        super().__init__()
+class LinkFinder:
+    def __init__(self, base_url, page_url):
         self.base_url = base_url
         self.page_url = page_url
         self.links = set()
-    
-    def handle_startendtag(self, tag, attrs):
-        print(attrs)
-        if tage == "a":
-            for (attribute  , value )  in  attr:
-                if attribute == "href":
-                    url = parse.urljoin(self.base_url , value)
-                    self.links.add(url)
-    
+
+    def feed(self, html):
+        soup = BeautifulSoup(html, 'html.parser')
+        for link in soup.find_all('a', href=True):
+            url = link['href']
+            full_url = urljoin(self.base_url, url)
+            self.links.add(full_url)
+
     def get_page_links(self):
         return self.links
-    
+
     def error(self, message):
         pass
-
-
-
-# finder = HTML_LinkFinder()
-# finder.feed("")

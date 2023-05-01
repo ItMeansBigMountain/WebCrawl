@@ -50,7 +50,7 @@ def set_to_file(set_of_links , filename):
     with open(filename,"w") as f:
         for x in sorted(set_of_links):
             f.write(x)
-            f.write()
+            f.write("\n")
 
 
 
