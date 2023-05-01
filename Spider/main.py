@@ -7,12 +7,15 @@ import threading
 from queue import Queue
 
 
-PROJECT_NAME = "oyama-productions"
-HOMEPAGE = "https://www.cnn.com"
+# HOMEPAGE = "https://www.cnn.com"
 # HOMEPAGE = "https://www.foxbusiness.com/"
-# HOMEPAGE = "https://www.youtube.com"
+HOMEPAGE = "https://www.youtube.com"
+
 
 DOMAIN_NAME = get_DomainName(HOMEPAGE)
+PROJECT_NAME = f"{DOMAIN_NAME.split('.')[0]}-link-map"
+
+
 QUEUE_FILE = PROJECT_NAME + "/queue.txt"
 CRAWLED_FILE = PROJECT_NAME + "/crawled.txt"
 NUMBER_OF_THREADS = 8
